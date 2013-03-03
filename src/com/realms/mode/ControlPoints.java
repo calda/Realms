@@ -1,13 +1,7 @@
 package com.realms.mode;
 
-import org.bukkit.entity.Player;
+public class ControlPoints extends GameMode{
 
-public class ControlPoints implements GameMode{
-
-	@Override
-	public void spawn(Player p) {
-		
-	}
 
 	@Override
 	public void startSchedules() {

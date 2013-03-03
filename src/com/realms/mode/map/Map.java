@@ -2,6 +2,7 @@ package com.realms.mode.map;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import com.cal.util.LocationParser;
 import com.caldabeast.pcd.UnparsedConfigurationData;
@@ -18,6 +19,18 @@ public class Map {
 	protected Location point1;
 	protected Location point2;
 	protected final List<MapElement> elements;
+	
+	public Map(){
+		gt = GameType.KOTH;
+		name = "Mt. Cal";
+		redSpawn = new ArrayList<Location>();
+		redSpawn.add(new Location(Bukkit.getWorld("world"), -744, 48, -56));
+		blueSpawn = new ArrayList<Location>();
+		blueSpawn.add(new Location(Bukkit.getWorld("world"), -744, 48, -56));
+		point1 = new Location(Bukkit.getWorld("world"), -776, 69, -29);
+		elements = new ArrayList<MapElement>();
+		elements.add(new HealthPack(new Location(Bukkit.getWorld("world"), -776, 69, -25)));
+	}
 	
 	public Map(GameType gametype, String mapname, UnparsedConfigurationData data){
 		gt = gametype;
@@ -74,6 +87,12 @@ public class Map {
 	
 	public String getNameMode(){
 		return gt.toString() + "_" + name;
+	}
+	
+	public void createMapElements(){
+		for(MapElement element : elements){
+			element.spawn();
+		}
 	}
 	
 	@Override

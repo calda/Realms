@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import com.realms.item.ItemType;
-import com.realms.runtume.RealmsMain;
+import com.realms.runtime.RealmsMain;
 
 public class FireProjectile implements Listener{
 

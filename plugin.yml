@@ -1,0 +1,11 @@
+name: Realms RPG
+main: com.realms.runtime.RealmsMain
+version: 1.0
+author: CalDaBeast
+description: RPG
+
+commands:
+    setteam:
+        description: gives a player's streak
+    setclass:
+        description: shows global mac streak

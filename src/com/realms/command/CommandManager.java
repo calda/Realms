@@ -30,6 +30,7 @@ public class CommandManager {
 	public static void loadAllCommands(){
 		new Vote();
 		new SetTeam();
+		new SetClass();
 	}
 	
 }

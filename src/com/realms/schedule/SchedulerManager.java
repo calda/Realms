@@ -6,7 +6,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import com.realms.runtume.RealmsMain;
+import com.realms.runtime.RealmsMain;
 
 public class SchedulerManager {
 

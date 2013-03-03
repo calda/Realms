@@ -1,13 +1,6 @@
 package com.realms.mode;
 
-import org.bukkit.entity.Player;
-
-public class KingOfTheHill implements GameMode{
-
-	@Override
-	public void spawn(Player p) {
-		
-	}
+public class KingOfTheHill extends GameMode{
 
 	@Override
 	public void startSchedules() {

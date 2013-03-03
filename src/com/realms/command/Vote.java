@@ -80,10 +80,11 @@ public class Vote extends Command{
 	
 	public static void broadcastVoteReadout(int seconds){
 		Broadcast.vote("Vote for the next map is open for " + seconds + " seconds!");
-		Broadcast.vote(ChatColor.DARK_RED + "Map A:~ " + gt1.getFullName() + ChatColor.YELLOW + "on~" + map1);
-		Broadcast.vote(ChatColor.DARK_RED + "Map B:~ " + gt2.getFullName() + ChatColor.YELLOW + "on~" + map2);
+		Broadcast.vote(ChatColor.DARK_RED + "Map A:~ " + gt1.getFullName() + ChatColor.DARK_GRAY + " on ~" + map1);
+		Broadcast.vote(ChatColor.DARK_RED + "Map B:~ " + gt2.getFullName() + ChatColor.DARK_GRAY + " on ~" + map2);
 		Broadcast.vote(ChatColor.DARK_RED + "Random" + ChatColor.RED + " (R)");
 		Broadcast.vote(ChatColor.YELLOW + "/vote [A/B/R]~ to cast your vote!");
+		Broadcast.vote("Current results are A:" + A + "  B:" + B + " R:" + R);
 	}
 	
 	public static void castVote(VoteCast vote){

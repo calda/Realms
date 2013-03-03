@@ -1,13 +1,6 @@
 package com.realms.mode;
 
-import org.bukkit.entity.Player;
-
-public class Domination implements GameMode{
-
-	@Override
-	public void spawn(Player p) {
-		
-	}
+public class Domination extends GameMode{
 
 	@Override
 	public void startSchedules() {

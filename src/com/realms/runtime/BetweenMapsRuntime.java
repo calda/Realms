@@ -1,16 +1,20 @@
-package com.realms.runtume;
+package com.realms.runtime;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import com.realms.schedule.SchedulerManager;
 import com.realms.command.Vote;
 import com.realms.command.Vote.VoteCast;
 import com.realms.general.Broadcast;
 import com.realms.io.MapData;
+import com.realms.mode.GameMode;
 import com.realms.mode.map.Map;
+import com.realms.runtime.RealmsMain;
 
 public class BetweenMapsRuntime {
 
@@ -39,17 +43,23 @@ public class BetweenMapsRuntime {
 				if(vote == VoteCast.A) next = mA;
 				else if(vote == VoteCast.B) next = mB;
 				else next = mR;
-				Broadcast.vote("And the vote is in!");
+				Broadcast.vote("The vote is in!");
 				Broadcast.vote("Next game is " + ChatColor.DARK_RED + next.getGameType().getFullName() + ChatColor.RED + " on " + ChatColor.DARK_RED + next.getName());
 				Broadcast.general("The next game will start in 10 seconds.");
-				Broadcast.general("Don't forget to pick a class with /class!");
+				Broadcast.general("Don't forget to pick a class with /class or the Choose Class Item!");
+				RealmsMain.setActiveMap(next);
+				previousMapName = next.getName();
 			}
 		});
 		SchedulerManager.registerSingle(40, new Runnable(){
 			public void run(){
 
 				previousMapName = next.getName();
-				LoadGameRuntime.load(next);
+				GameMode mode = next.getGameType().getMethods();
+				mode.startSchedules();
+				for(Player p : Bukkit.getOnlinePlayers()){
+					mode.spawn(p);
+				}
 			}
 		});
 	}

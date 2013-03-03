@@ -20,6 +20,10 @@ public class Broadcast {
 		Bukkit.getServer().broadcastMessage(constructMessage(message, "ERROR", ChatColor.DARK_RED, ChatColor.RED, ChatColor.RED));
 	}
 	
+	public static void portal(String message){
+		Bukkit.getServer().broadcastMessage(constructMessage(message, "Portal", ChatColor.DARK_PURPLE, ChatColor.LIGHT_PURPLE, ChatColor.LIGHT_PURPLE));
+	}
+	
 	public static void excelemation(String message){
 		Bukkit.getServer().broadcastMessage(constructMessage(message, "!", ChatColor.DARK_RED, ChatColor.YELLOW, ChatColor.YELLOW));
 	}
@@ -34,6 +38,10 @@ public class Broadcast {
 	
 	public static void error(String message, CommandSender p){
 		p.sendMessage(constructMessage(message, "ERROR", ChatColor.DARK_RED, ChatColor.RED, ChatColor.RED));
+	}
+	
+	public static void portal(String message, CommandSender p){
+		p.sendMessage(constructMessage(message, "Portal", ChatColor.DARK_PURPLE, ChatColor.LIGHT_PURPLE, ChatColor.LIGHT_PURPLE));
 	}
 	
 	public static void excelemation(String message, CommandSender p){

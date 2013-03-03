@@ -12,33 +12,43 @@ public class MapData implements Data{
 
 	//STATIC METHODS
 	public static List<Map> maps = new ArrayList<Map>();
-	
+
 	public static void loadMapsFromConfig(){
 		maps.clear();
 		//need do
 	}
-	
+
 	public static Map getRandomMap(){
-		Random r = new Random();
-		int map = r.nextInt(maps.size());
-		return maps.get(map);
+		try{
+			Random r = new Random();
+			int map = r.nextInt(maps.size());
+			return maps.get(map);
+		}catch(Exception e){
+			System.out.println("B\nA\nD\nT\nH\nI\nG\nS");
+			return new Map();
+		}
 	}
-	
+
 	public static Map getRandomMapExcluding(List<String> ex){
-		List<Map> notexcluded = new ArrayList<Map>();
-		for(Map m : maps){
-			boolean match = false;
-			String name = m.getName();
-			for(String s : ex){
-				if(name.equals(s)) match = true;
-			}if(match == false){
-				notexcluded.add(m);
-			}
-		}Random r = new Random();
-		int map = r.nextInt(notexcluded.size());
-		return notexcluded.get(map);
+		try{
+			List<Map> notexcluded = new ArrayList<Map>();
+			for(Map m : maps){
+				boolean match = false;
+				String name = m.getName();
+				for(String s : ex){
+					if(name.equals(s)) match = true;
+				}if(match == false){
+					notexcluded.add(m);
+				}
+			}Random r = new Random();
+			int map = r.nextInt(notexcluded.size());
+			return notexcluded.get(map);
+		}catch(Exception e){
+			System.out.println("B\nA\nD\nT\nH\nI\nG\nS");
+			return new Map();
+		}
 	}
-	
+
 	public static Map getMapFromString(String unparsed){
 		UnparsedConfigurationData data = null;
 		try{ data = new UnparsedConfigurationData(unparsed); }

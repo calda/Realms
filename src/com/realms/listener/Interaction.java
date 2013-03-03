@@ -17,6 +17,7 @@ public class Interaction implements Listener{
 	public void onPlayerInteract(PlayerInteractEvent e){
 		Player interact = e.getPlayer();
 		ItemStack is = interact.getItemInHand();
+		if(is == null) return;
 		ItemType it = ItemType.getItemType(is.getType());
 		if(it == null) return;
 		ItemInteraction interaction = it.getInteraction();

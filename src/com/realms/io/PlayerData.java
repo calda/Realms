@@ -26,6 +26,7 @@ public class PlayerData implements Data{
 	private Team t = Team.NONE;
 	private TeamPref tp = TeamPref.NOTCHOSEN;
 	private ClassType ct = null;
+	private ClassType next = null;
 
 	public PlayerData(String name){
 		owner = name;
@@ -113,12 +114,24 @@ public class PlayerData implements Data{
 	public void setClass(ClassType ctNew){
 		ct = ctNew;
 	}
+	
+	public ClassType getNextClass(){
+		return next;
+	}
+	
+	public void setNextClass(ClassType newNext){
+		next = newNext;
+	}
 
 	public String getParsedString(){
 		try{ return getParsableData().getParsedString(); } 
 		catch(PCDUnallowedException e){ return ""; }
 	}
 
+	public ClassData getDataForClass(ClassType type){
+		return this.classdata.get(type);
+	}
+	
 	public ParsableConfigurationData getParsableData(){
 		ParsableConfigurationData data = new ParsableConfigurationData("PlayerData");
 		try{

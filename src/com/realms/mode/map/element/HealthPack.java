@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.realms.io.PluginData;
-import com.realms.runtume.RealmsMain;
+import com.realms.runtime.RealmsMain;
 import com.realms.schedule.SchedulerManager;
 import com.realms.type.ClassType;
 
@@ -39,7 +39,7 @@ public class HealthPack extends MapElement{
 	
 	public void scheduleRespawn(){
 		final HealthPack instance = this;
-		SchedulerManager.registerSingle(RealmsMain.gametype.name(), "RespawnHealthPack", 30, new Runnable(){
+		SchedulerManager.registerSingle(RealmsMain.getGameTypeName(), "RespawnHealthPack", 30, new Runnable(){
 			@Override
 			public void run(){
 				instance.spawn();
