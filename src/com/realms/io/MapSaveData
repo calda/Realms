@@ -13,5 +13,5 @@ MapElements (module)
 	element1 (str)
 	element2 (str)
 Points (module)
-	point0 (loc:str)   //if applicable to gametype
 	point1 (loc:str)   //if applicable to gametype
+	point2 (loc:str)   //if applicable to gametype

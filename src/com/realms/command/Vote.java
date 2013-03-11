@@ -6,7 +6,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
 import com.realms.general.Broadcast;
 import com.realms.general.HotbarManager;
 import com.realms.item.ItemType;
@@ -34,39 +33,6 @@ public class Vote extends Command{
 	public Vote(){
 		super("vote");
 		Vote.instance = this;
-	}
-	
-	@Override
-	public void execute(CommandSender s, String[] args){
-		if(!open){
-			Broadcast.vote("The vote is not currently open.", s);
-			return;
-		}
-		if(args.length == 1){
-			String name;
-			if(s instanceof Player) name = ((Player)s).getName();
-			else name = "CONSOLE";
-			String cast = args[0];
-			VoteCast vote = null;
-			if(cast.equalsIgnoreCase("A")) vote = VoteCast.A;
-			else if(cast.equalsIgnoreCase("B")) vote = VoteCast.B;
-			else if(cast.equalsIgnoreCase("R")) vote = VoteCast.R;
-			else{
-				Broadcast.error("Incorrect usage.", s);
-				Broadcast.error("Usage: /vote [A/B/R]", s);
-				return;
-			}
-			if(votes.containsKey(name)){
-				VoteCast oldVote = votes.get(name);
-				uncastVote(oldVote);
-			}castVote(vote);
-			votes.put(name, vote);
-			updatePlayerReadout();
-			Broadcast.vote("You have voted for " + vote.toString(), s);
-		}else{
-			Broadcast.error("Incorrect usage.", s);
-			Broadcast.error("Usage: /vote [A/B/R]", s);
-		}
 	}
 	
 	public static void open(String mapA, GameType gtA, String mapB, GameType gtB){
@@ -113,9 +79,42 @@ public class Vote extends Command{
 	}
 	
 	public static void updatePlayerReadout(){
-		HotbarManager.setHotbarItemAll(6, new ItemStack(ItemType.VOTE_A.getMaterial(), A + 1));
-		HotbarManager.setHotbarItemAll(7, new ItemStack(ItemType.VOTE_B.getMaterial(), B + 1));
-		HotbarManager.setHotbarItemAll(8, new ItemStack(ItemType.VOTE_R.getMaterial(), R + 1));
+		HotbarManager.setHotbarItemAll(7, new ItemStack(ItemType.VOTE_A.getMaterial(), A + 1));
+		HotbarManager.setHotbarItemAll(8, new ItemStack(ItemType.VOTE_B.getMaterial(), B + 1));
+		HotbarManager.setHotbarItemAll(9, new ItemStack(ItemType.VOTE_R.getMaterial(), R + 1));
+	}
+
+	@Override
+	public void execute(CommandSender s, String[] args){
+		if(!open){
+			Broadcast.vote("The vote is not currently open.", s);
+			return;
+		}
+		if(args.length == 1){
+			String name;
+			if(s instanceof Player) name = ((Player)s).getName();
+			else name = "CONSOLE";
+			String cast = args[0];
+			VoteCast vote = null;
+			if(cast.equalsIgnoreCase("A")) vote = VoteCast.A;
+			else if(cast.equalsIgnoreCase("B")) vote = VoteCast.B;
+			else if(cast.equalsIgnoreCase("R")) vote = VoteCast.R;
+			else{
+				Broadcast.error("Incorrect usage.", s);
+				Broadcast.error("Usage: /vote [A/B/R]", s);
+				return;
+			}
+			if(votes.containsKey(name)){
+				VoteCast oldVote = votes.get(name);
+				uncastVote(oldVote);
+			}castVote(vote);
+			votes.put(name, vote);
+			updatePlayerReadout();
+			Broadcast.vote("You have voted for " + vote.toString(), s);
+		}else{
+			Broadcast.error("Incorrect usage.", s);
+			Broadcast.error("Usage: /vote [A/B/R]", s);
+		}
 	}
 	
 }

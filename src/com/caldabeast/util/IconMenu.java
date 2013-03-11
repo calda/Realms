@@ -1,4 +1,4 @@
-package com.cal.util;
+package com.caldabeast.util;
 
 import java.util.Arrays;
 import org.bukkit.Bukkit;

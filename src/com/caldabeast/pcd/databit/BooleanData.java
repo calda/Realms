@@ -27,7 +27,7 @@ public class BooleanData extends DataBit{
 	 * @return the BooleanData containing the unparsed data
 	 * @throws PCDUnallowedException If the unparsed contents is a malformed boolean
 	 */
-	public static BooleanData createFromParsedString(String parsed) throws PCDUnallowedException {
+	public static BooleanData createFromParsedString(String parsed){
 		String dataContents = parsed.substring(1);
 		List<Character> nameList = new ArrayList<Character>();
 		for(char c : dataContents.toCharArray()){

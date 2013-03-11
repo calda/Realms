@@ -17,7 +17,7 @@ public class ParsableConfigurationData{
 		this.name = name;
 	}
 	
-	private void updateParsedData() throws PCDUnallowedException{
+	private void updateParsedData(){
 		parsedData = "$" + name + "~";
 		for(Data d : data){
 			parsedData = parsedData + d.getParsedString();
@@ -30,7 +30,7 @@ public class ParsableConfigurationData{
 	 * @return the UnparsedConfigurationData of this Parsable
 	 * @throws PCDUnallowedException if there is an error in conversion
 	 */
-	public UnparsedConfigurationData getAsUnparsed() throws PCDUnallowedException{
+	public UnparsedConfigurationData getAsUnparsed(){
 		String unparsed = this.getParsedString();
 		return new UnparsedConfigurationData(unparsed);
 	}
@@ -40,7 +40,7 @@ public class ParsableConfigurationData{
 	 * @return parsed version of the current module status and data bits
 	 * @throws PCDUnallowedException if not data bits have been added
 	 */
-	public String getParsedString() throws PCDUnallowedException{
+	public String getParsedString(){
 		if(data.size() == 0){
 			throw new PCDUnallowedException("You cannot parse an empty configuration.");
 		}updateParsedData();
@@ -59,7 +59,7 @@ public class ParsableConfigurationData{
 	 * @param db the data bit to add to the module
 	 * @throws PCDUnallowedException 
 	 */
-	public void addNewData(Data d) throws PCDUnallowedException{
+	public void addNewData(Data d){
 		data.add(d);
 		if(data.size() != 1) parsedData += ";";
 		parsedData += d.getParsedString();

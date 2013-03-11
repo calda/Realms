@@ -11,11 +11,11 @@ import org.bukkit.Material;
 public enum ItemType{
 
 	//INVNENTORY TEXT
-	VOTE_A(null, 1, "Vote: A", "Can be used to vote for Map A", 0, 0, new VoteInteract("A")),
-	VOTE_B(null, 1, "Vote: B", "Can be used to vote for Map B", 0, 0, new VoteInteract("B")),
-	VOTE_R(null, 1, "Vote: R", "Can be used to vote for Map R", 0, 0, new VoteInteract("R")),
-	CHOOSE_CLASS(null, 1, "Choose a Class!", "Can be used to choose your class", 0, 0, null),
-	CHOOSE_TEAM(null, 1, "Choose a Team!", "Can be used to choose your team", 0, 0, null),
+	VOTE_A(Material.WOOD_DOOR, 1, "Vote: A", "Can be used to vote for Map A", 0, 0, new VoteInteract("A")),
+	VOTE_B(Material.IRON_DOOR, 1, "Vote: B", "Can be used to vote for Map B", 0, 0, new VoteInteract("B")),
+	VOTE_R(Material.SIGN, 1, "Vote: R", "Can be used to vote for Map R", 0, 0, new VoteInteract("R")),
+	CHOOSE_CLASS(Material.PUMPKIN_SEEDS, 1, "Choose a Class!", "Can be used to choose your class", 0, 0, null),
+	CHOOSE_TEAM(Material.MELON_SEEDS, 1, "Choose a Team!", "Can be used to choose your team", 0, 0, null),
 	
 	POTION_MANA(Material.MUSHROOM_SOUP, 1, "Mana Potion", "Heals you to max mana", 3, 0, new PotionInteract(PotionType.MANA)),
 	EMPTY_BOTTLE(Material.BOWL, 1, "Empty Bottle", "Can shatter it on enemies!", 3, 0, new PotionInteract(PotionType.EMPTY)),
@@ -114,5 +114,17 @@ public enum ItemType{
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;
+	}
+	
+	public static ItemStack getCustomItemStack(Material m, int amount, String name, String lore){
+		ItemStack is = new ItemStack(m, amount);
+		ItemMeta meta = is.getItemMeta();
+		if(name != null) meta.setDisplayName(name);
+		if(lore != null){
+			List<String> loreList = new ArrayList<String>();
+			loreList.add(lore);
+			meta.setLore(loreList);
+		}is.setItemMeta(meta);
+		return is;
 	}
 }

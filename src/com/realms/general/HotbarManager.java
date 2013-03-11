@@ -15,7 +15,7 @@ public class HotbarManager {
 	}
 	
 	public static void setHotbarItem(Player p, int slot, ItemStack item){
-		p.getInventory().setItem(slot, item);
+		p.getInventory().setItem(slot - 1, item);
 	}
 	
 	public static void setHotbarItemAll(int slot, ItemStack item){

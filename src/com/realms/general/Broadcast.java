@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import com.cal.util.TagMaker;
+import com.caldabeast.util.TagMaker;
 
 public class Broadcast {
 

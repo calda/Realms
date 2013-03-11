@@ -1,6 +1,6 @@
 package com.caldabeast.pcd;
 
-public class PCDUnallowedException extends Exception {
+public class PCDUnallowedException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * The cause of the error that threw this exception. Useful for debugging.

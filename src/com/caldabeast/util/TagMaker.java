@@ -1,4 +1,4 @@
-package com.cal.util;
+package com.caldabeast.util;
 
 import org.bukkit.ChatColor;
 

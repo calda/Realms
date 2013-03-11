@@ -2,30 +2,29 @@ package com.realms.io;
 
 import com.caldabeast.pcd.*;
 import com.caldabeast.pcd.databit.*;
-import com.realms.mode.map.Map;
 
 public class IOTest {
 
-	public static void main(String[] args) throws PCDUnallowedException{
+	public static void main(String[] args){
 		
-		ParsableConfigurationData data = new ParsableConfigurationData("TestMapYeee");
-		data.addNewData(new StringData("GameType", "KOTH"));
-		ParsableModule redSpawns = new ParsableModule("RedSpawns");
-		redSpawns.addNewDatabit(new StringData("spawn1", "world%1%1%1%1.0%1.0"));
-		data.addNewData(redSpawns);
-		ParsableModule blueSpawns = new ParsableModule("BlueSpawns");
-		blueSpawns.addNewDatabit(new StringData("spawn1", "world%1%1%1%1.0%1.0"));
-		data.addNewData(blueSpawns);
-		ParsableModule mapElements = new ParsableModule("MapElements");
-		mapElements.addNewDatabit(new StringData("element0", "PermHealthPack?world%1%1%1%1.0%1.0"));
-		data.addNewData(mapElements);
-		ParsableModule points = new ParsableModule("Points");
-		points.addNewDatabit(new StringData("point1", "world%1%1%1%1.0%1.0"));
-		data.addNewData(points);
-		System.out.println(data.getParsedString());
+		
+		ParsableConfigurationData data = new ParsableConfigurationData("test");
+		
+		data.addNewData(new StringData("stringTest", "pklolololol"));
+		data.addNewData(new IntData("intTest", 420));
+		data.addNewData(new BooleanData("booleanTest", true));
+		data.addNewData(new FloatData("floatTest", 42.0f));
+		
+		ParsableModule mod = new ParsableModule("mod");
+		mod.addNewDatabit(new StringData("stringTest", "pklolololol"));
+		mod.addNewDatabit(new IntData("intTest", 420));
+		mod.addNewDatabit(new BooleanData("booleanTest", true));
+		mod.addNewDatabit(new FloatData("floatTest", 42.0f));
+		data.addNewData(mod);
+		
 		System.out.println(data.getAsUnparsed().toString());
-		Map m = MapData.getMapFromString(data.getParsedString());
-		System.out.println(m);
+		System.out.println(data.getParsedString());
+		
 	}
 	
 }

@@ -25,7 +25,7 @@ public class UnparsedConfigurationData {
 	 * @param data The module to unparse
 	 * @throws PCDUnallowedException If attempting to assign a data bit with a name that is already in use within this module
 	 */
-	public UnparsedConfigurationData(String data) throws PCDUnallowedException{
+	public UnparsedConfigurationData(String data){
 		dataContents = data.substring(1);
 		List<Character> nameList = new ArrayList<Character>();
 		for(char c : dataContents.toCharArray()){
