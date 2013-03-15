@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="MacRoman" standalone="no"?>
+<jardesc>
+    <jar path="/Users/cal/Desktop/BukkitServer/plugins/RealmsConfig.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/RealmsConfig/export.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/RealmsConfig/.classpath"/>
+        <javaElement handleIdentifier="=RealmsConfig/src"/>
+        <file path="/RealmsConfig/plugin.yml"/>
+        <file path="/RealmsConfig/.project"/>
+    </selectedElements>
+</jardesc>

@@ -1,0 +1,5 @@
+name: RealmsConfig
+main: com.realms.config.ConfigMain
+version: 1.0
+author: CalDaBeast
+description: config management for Realms
