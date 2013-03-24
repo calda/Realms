@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import com.cal.util.LocationParser;
 import com.caldabeast.pcd.UnparsedConfigurationData;
 import com.caldabeast.pcd.UnparsedModule;
+import com.cal.util.LocationParser;
 import com.realms.mode.GameType;
 import com.realms.mode.map.element.*;
 
@@ -44,6 +44,7 @@ public class Map {
 		for(String s : redSpawnData.getDataBitNames()){
 			String locUnparsed = redSpawnData.getString(s);
 			Location parsedLoc = LocationParser.stringToLoc(locUnparsed);
+			System.out.println(parsedLoc);
 			if(parsedLoc != null) redSpawn.add(parsedLoc);
 		}
 		
@@ -52,6 +53,7 @@ public class Map {
 		for(String s : blueSpawnData.getDataBitNames()){
 			String locUnparsed = blueSpawnData.getString(s);
 			Location parsedLoc = LocationParser.stringToLoc(locUnparsed);
+			System.out.println(parsedLoc);
 			if(parsedLoc != null) blueSpawn.add(parsedLoc);
 		}
 		
@@ -70,11 +72,18 @@ public class Map {
 			String unparsedLoc = afterTilda.toString();
 			MapElementType elementType = MapElementType.valueOf(type);
 			Location loc = LocationParser.stringToLoc(unparsedLoc);
+			System.out.println(loc);
 			if(elementType != null && loc != null){
 				if(elementType == MapElementType.HealthPack) elements.add(new HealthPack(loc));
 				if(elementType == MapElementType.PermHealthPack) elements.add(new PermHealthPack(loc));
 			}
 		}
+		
+		UnparsedModule points = data.getModule("Points");
+		String point1 = points.getString("point1");
+		this.point1 = LocationParser.stringToLoc(point1);
+		if(points.containsDataBit("point2")) this.point2 = LocationParser.stringToLoc(points.getString("point2"));
+		
 	}
 	
 	public GameType getGameType(){
@@ -91,9 +100,33 @@ public class Map {
 	
 	public void createMapElements(){
 		for(MapElement element : elements){
+			element.register();
 			element.spawn();
 		}
 	}
+	
+	public void clearMapElements(){
+		for(MapElement element : elements){
+			element.unregister();
+		}
+	}
+	
+	public List<Location> getBlueSpawns(){
+		return blueSpawn;
+	}
+	
+	public List<Location> getRedSpawns(){
+		return redSpawn;
+	}
+	
+	public Location getPoint1(){
+		return point1;
+	}
+	
+	public Location getPoint2(){
+		return point2;
+	}
+	
 	
 	@Override
 	public String toString(){

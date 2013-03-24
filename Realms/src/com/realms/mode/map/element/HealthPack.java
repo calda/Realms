@@ -20,11 +20,10 @@ public class HealthPack extends MapElement{
 	
 	public final static Material HealthPackMaterial = Material.CAKE_BLOCK;
 	private final Location location;
-	private final float id;
+	private float id = 0.0f;
 	
 	public HealthPack(Location loc){
 		location = loc;
-		id = MapElement.registerElement(this);
 	}
 	
 	public void spawn(){
@@ -40,7 +39,6 @@ public class HealthPack extends MapElement{
 	public void scheduleRespawn(){
 		final HealthPack instance = this;
 		SchedulerManager.registerSingle(RealmsMain.getGameTypeName(), "RespawnHealthPack", 30, new Runnable(){
-			@Override
 			public void run(){
 				instance.spawn();
 			}
@@ -48,11 +46,28 @@ public class HealthPack extends MapElement{
 	}
 	
 	public void pickup(Item i, Player p){
+		if(id == 0.0f){
+			return;
+		}
 		scheduleRespawn();
 		ClassType ct = PluginData.getPlayerData(p).getPlayerClass();
 		if(ct == null) return;
 		p.setHealth(ct.getMaxHealth());
 		i.setFireTicks(999);
+	}
+
+	public void register(){
+		id = MapElement.registerElement(this);
+	}
+	
+	public void unregister(){
+		MapElement.unregisterElement(id);
+		id = 0.0f;
+	}
+
+	@Override
+	public Location getLocation(){
+		return location;
 	}
 	
 }

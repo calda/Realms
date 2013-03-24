@@ -1,13 +1,6 @@
-package com.realms.mode;
-
-import org.bukkit.entity.Player;
+package com.realms.mode; 
 
 public class Randomizer extends GameMode{
-
-	@Override
-	public void spawn(Player p){
-		
-	}
 	
 	@Override
 	public void startSchedules() {

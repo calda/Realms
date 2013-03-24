@@ -31,7 +31,6 @@ public class MenuManager{
 		}
 
 		final IconMenu classMenu = new IconMenu(ChatColor.DARK_RED + "Choose a Class!", 27, new IconMenu.OptionClickEventHandler() {
-			@Override
 			public void onOptionClick(IconMenu.OptionClickEvent e) {
 				e.setWillClose(false);
 				e.setWillDestroy(false);
@@ -74,7 +73,6 @@ public class MenuManager{
 	}
 
 	private final static IconMenu teamMenu = new IconMenu(ChatColor.DARK_RED + "Choose a Team!", 9, new IconMenu.OptionClickEventHandler() {
-		@Override
 		public void onOptionClick(IconMenu.OptionClickEvent e) {
 			e.setWillClose(false);
 			e.setWillDestroy(false);

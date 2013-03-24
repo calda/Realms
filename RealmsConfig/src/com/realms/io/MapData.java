@@ -30,7 +30,7 @@ public class MapData implements Data{
 		}if(maps.size() > 0) return true;
 		else return false;
 	}
-	
+
 	public static boolean areNewMapsToLoad(){
 		String mapNames = PKSQLd.getUnparsedData(";ALLMAPNAMES;");
 		if(mapNames == null || mapNames.length() == 0) return false;
@@ -61,9 +61,12 @@ public class MapData implements Data{
 			}if(match == false){
 				notexcluded.add(m);
 			}
-		}Random r = new Random();
-		int map = r.nextInt(notexcluded.size());
-		return notexcluded.get(map);
+		}
+		if(notexcluded.size() != 0){ 
+			Random r = new Random();
+			int map = r.nextInt(notexcluded.size());
+			return notexcluded.get(map);
+		}else return getRandomMap();
 	}
 
 	public static Map getMapFromString(String unparsed){

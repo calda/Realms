@@ -16,7 +16,7 @@ public class LocationParser{
 		if(s == null) return null;
 		StringBuilder sb = new StringBuilder();
 		for(char c : s.toCharArray()){
-			if(c == '%') sb.append(';');
+			if(c == '*') sb.append(';');
 			else sb.append(c);
 		}String[] parse = sb.toString().split(";");
 		if(parse.length != 6) return null;
@@ -51,7 +51,7 @@ public class LocationParser{
 		float pitch = loc.getPitch();
 		float yaw = loc.getYaw();
 		String world = loc.getWorld().getName();
-		return world + "%" + x + "%" + y + "%" + z + "%" + pitch + "%" + yaw;
+		return world + "*" + x + "*" + y + "*" + z + "*" + pitch + "*" + yaw;
 	}
 
 }

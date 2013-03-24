@@ -31,6 +31,8 @@ public class CommandManager {
 		new Vote();
 		new SetTeam();
 		new SetClass();
+		new MapCommand();
+		new SetSpawn();
 	}
 	
 }

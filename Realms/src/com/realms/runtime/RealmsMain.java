@@ -1,13 +1,16 @@
 package com.realms.runtime;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.cal.util.LocationParser;
 import com.realms.command.CommandManager;
 import com.realms.general.Broadcast;
 import com.realms.io.MapData;
+import com.realms.io.PKSQLd;
 import com.realms.listener.*;
 import com.realms.mode.GameMode;
 import com.realms.mode.map.Map;
@@ -23,14 +26,17 @@ public class RealmsMain extends JavaPlugin{
 
 	private static boolean gameActive = false;
 	private static Map activeMap;
+	private static Location spawn;
 
 	@Override
 	public void onEnable(){
+		spawn = LocationParser.stringToLoc(PKSQLd.getUnparsedData("MAPSPAWN"));
 		Bukkit.getPluginManager().registerEvents(new Damage(), this);
 		Bukkit.getPluginManager().registerEvents(new FireProjectile(this), this);
 		Bukkit.getPluginManager().registerEvents(new Interaction(), this);
 		Bukkit.getPluginManager().registerEvents(new InventoryCancel(), this);
 		Bukkit.getPluginManager().registerEvents(new MapElementInteractions(), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerSpawn(), this);
 		CommandManager.loadAllCommands();
 		if(!ConfigMain.hasBeenLoaded()){
 			ConfigMain.loaded();
@@ -99,4 +105,8 @@ public class RealmsMain extends JavaPlugin{
 		return activeMap.getGameType().name();
 	}
 
+	public static Location getSpawn(){
+		return spawn;
+	}
+	
 }

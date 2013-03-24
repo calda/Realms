@@ -11,3 +11,5 @@ commands:
         description: shows global mac streak
     map:
         description: admin tool for creating maps
+    setspawn:
+        description: admin tool for setting spawn

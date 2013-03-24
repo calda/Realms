@@ -11,15 +11,15 @@ import com.realms.schedule.SchedulerManager;
 import com.realms.command.Vote;
 import com.realms.command.Vote.VoteCast;
 import com.realms.general.Broadcast;
+import com.realms.mode.map.Map;
 import com.realms.io.MapData;
 import com.realms.mode.GameMode;
-import com.realms.mode.map.Map;
 import com.realms.runtime.RealmsMain;
 
 public class BetweenMapsRuntime {
 
 	private static String previousMapName = "";
-	private static Map next;
+	private static com.realms.mode.map.Map next;
 	
 	public static void start(){
 		List<String> mapsToExclude = new ArrayList<String>();
@@ -31,6 +31,7 @@ public class BetweenMapsRuntime {
 		final Map mR = MapData.getRandomMapExcluding(mapsToExclude);
 		Vote.open(mA.getName(), mA.getGameType(), mB.getName(), mB.getGameType());
 		Vote.broadcastVoteReadout(30);
+		Vote.updatePlayerReadout();
 		SchedulerManager.registerSingle(10, new Runnable(){
 			public void run(){ Vote.broadcastVoteReadout(20); }
 		});
@@ -47,6 +48,8 @@ public class BetweenMapsRuntime {
 				Broadcast.vote("Next game is " + ChatColor.DARK_RED + next.getGameType().getFullName() + ChatColor.RED + " on " + ChatColor.DARK_RED + next.getName());
 				Broadcast.general("The next game will start in 10 seconds.");
 				Broadcast.general("Don't forget to pick a class with /class or the Choose Class Item!");
+				System.out.println(next);
+				System.out.println(next.getPoint1());
 				RealmsMain.setActiveMap(next);
 				previousMapName = next.getName();
 			}

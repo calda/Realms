@@ -3,6 +3,7 @@ package com.realms.mode.map.element;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -12,7 +13,10 @@ public abstract class MapElement{
 	
 	public abstract void spawn();
 	public abstract void scheduleRespawn();
+	public abstract void register();
+	public abstract void unregister();
 	public abstract void pickup(Item floating, Player p);
+	public abstract Location getLocation();
 	
 	private static HashMap<Float, MapElement> registeredMapElements = new HashMap<Float, MapElement>();
 	
@@ -32,6 +36,10 @@ public abstract class MapElement{
 		}
 	}
 	
+	public static void spawnAllElements(){
+		//spawn all writable elements
+	}
+	
 	protected static float registerElement(MapElement element){
 		float id = 0.0f;
 		while(id == 0.0f || registeredMapElements.containsKey(id)){
@@ -40,7 +48,12 @@ public abstract class MapElement{
 		return id;
 	}
 	
+	public static void unregisterElement(float id){
+		if(registeredMapElements.containsKey(id)) registeredMapElements.remove(id);
+	}
+	
 	public static void clearResgisteredElements(){
+		//clear elements from previous map
 		registeredMapElements = new HashMap<Float, MapElement>();
 	}
 	

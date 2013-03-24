@@ -26,6 +26,9 @@ public class IOTest {
 		System.out.println(data.getAsUnparsed().toString());
 		Map m = MapData.getMapFromString(data.getParsedString());
 		System.out.println(m);
+		
+		System.out.println("\n" + PKSQLd.getUnparsedData(";ALLMAPNAMES;"));
+		System.out.println("\n" + PKSQLd.getUnparsedData("map|KOTH|Mt.Cal"));
 	}
 	
 }
