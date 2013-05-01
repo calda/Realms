@@ -70,7 +70,7 @@ public class MapData implements Data{
 	}
 
 	public static Map getMapFromString(String unparsed){
-		System.out.println("Getting map for " + unparsed);
+		//System.out.println("Getting map for " + unparsed);
 		UnparsedConfigurationData data = null;
 		try{ data = new UnparsedConfigurationData(unparsed); }
 		catch(Exception e){}

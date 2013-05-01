@@ -34,7 +34,7 @@ public class Map {
 	
 	public Map(GameType gametype, String mapname, UnparsedConfigurationData data){
 		gt = gametype;
-		name = mapname;
+		name = mapname.split("|")[1];
 		redSpawn = new ArrayList<Location>();
 		blueSpawn = new ArrayList<Location>();
 		elements = new ArrayList<MapElement>();
