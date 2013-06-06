@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
@@ -18,8 +17,13 @@ import com.realms.item.InteractionType;
 import com.realms.item.ItemInteraction;
 import com.realms.item.ItemType;
 import com.realms.item.StatusAilment;
+import com.realms.runtime.RealmsMain;
 
-public class Damage implements Listener{
+public class Damage extends RealmsListener{
+
+	public Damage(RealmsMain realms){
+		super(realms);
+	}
 
 	@EventHandler
 	public void onPlayerDamage(EntityDamageEvent ede){

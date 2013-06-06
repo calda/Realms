@@ -2,15 +2,17 @@ package com.realms.menu;
 
 import java.util.HashMap;
 import java.util.List;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import com.cal.util.IconMenu;
+import com.realms.command.*;
 import com.realms.general.Broadcast;
 import com.realms.general.Team;
 import com.realms.general.TeamPref;
 import com.realms.io.PlayerData;
 import com.realms.io.PluginData;
+import com.realms.item.ItemType;
 import com.realms.runtime.RealmsMain;
 import com.realms.type.ClassType;
 
@@ -93,6 +95,35 @@ public class MenuManager{
 
 	public static void sendPlayerTeamMenu(final Player p){
 		teamMenu.open(p);
+	}
+	
+	private static IconMenu voteMenu;
+	
+	public static void createVoteMenu(String desc1, String desc2){
+		voteMenu = new IconMenu(ChatColor.DARK_RED + "Vote for Next Map", 9, new IconMenu.OptionClickEventHandler() {
+			public void onOptionClick(IconMenu.OptionClickEvent e) {
+				e.setWillClose(false);
+				e.setWillDestroy(false);
+				final String clicked = e.getName();
+				if(clicked == null) return;
+				final Vote.VoteCast vote;
+				if(e.getName().endsWith("A")) vote = Vote.VoteCast.A;
+				else if(e.getName().endsWith("B")) vote = Vote.VoteCast.B;
+				else if(e.getName().startsWith("R")) vote = Vote.VoteCast.R;
+				else return;
+				System.out.println("VOTE WAS " + vote);
+				String[] args = {vote.toString()};
+				CommandManager.callCommand("vote", e.getPlayer(), args);
+				e.setWillClose(true);
+			}
+		}, RealmsMain.main)
+		.setOption(3, new ItemStack(ItemType.VOTE_A.getMaterial()), ChatColor.GOLD + "Map A", desc1)
+		.setOption(4, new ItemStack(ItemType.VOTE_B.getMaterial()), ChatColor.GOLD + "Map B", desc2)
+		.setOption(5, new ItemStack(ItemType.VOTE_R.getMaterial()), ChatColor.GOLD + "Random Map", "The map will be randomly assigned");
+	}
+	
+	public static void sendPlayerVoteMenu(final Player p){
+		voteMenu.open(p);
 	}
 
 }

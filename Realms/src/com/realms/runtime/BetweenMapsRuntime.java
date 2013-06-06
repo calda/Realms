@@ -32,6 +32,7 @@ public class BetweenMapsRuntime {
 		Vote.open(mA.getName(), mA.getGameType(), mB.getName(), mB.getGameType());
 		Vote.broadcastVoteReadout(30);
 		Vote.updatePlayerReadout();
+		RealmsMain.setServerMode(ServerMode.VOTE);
 		SchedulerManager.registerSingle(10, new Runnable(){
 			public void run(){ Vote.broadcastVoteReadout(20); }
 		});
@@ -46,20 +47,19 @@ public class BetweenMapsRuntime {
 				else next = mR;
 				Broadcast.vote("The vote is in!");
 				Broadcast.vote("Next game is " + ChatColor.DARK_RED + next.getGameType().getFullName() + ChatColor.RED + " on " + ChatColor.DARK_RED + next.getName());
-				Broadcast.general("The next game will start in 10 seconds.");
-				Broadcast.general("Don't forget to pick a class with /class or the Choose Class Item!");
-				System.out.println(next);
-				System.out.println(next.getPoint1());
+				Broadcast.general("The next game will start in 20 seconds.");
+				Broadcast.general("Don't forget to pick a class and team!");
 				RealmsMain.setActiveMap(next);
 				previousMapName = next.getName();
+				RealmsMain.setServerMode(ServerMode.POSTVOTE);
 			}
 		});
-		SchedulerManager.registerSingle(40, new Runnable(){
+		SchedulerManager.registerSingle(50, new Runnable(){
 			public void run(){
-
 				previousMapName = next.getName();
 				GameMode mode = next.getGameType().getMethods();
 				mode.startSchedules();
+				RealmsMain.setServerMode(ServerMode.GAME);
 				for(Player p : Bukkit.getOnlinePlayers()){
 					mode.spawn(p);
 				}

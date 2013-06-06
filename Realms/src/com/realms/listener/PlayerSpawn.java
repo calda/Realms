@@ -2,19 +2,22 @@ package com.realms.listener;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import com.realms.general.Broadcast;
-import com.realms.runtime.RealmsMain;
+import com.realms.runtime.*;
 import com.realms.schedule.SchedulerManager;
 
-public class PlayerSpawn implements Listener{
+public class PlayerSpawn extends RealmsListener{
+	
+	public PlayerSpawn(RealmsMain realms){
+		super(realms);
+	}
 
 	@EventHandler
 	public void onPlayerSpawn(PlayerRespawnEvent e){
 		e.setRespawnLocation(RealmsMain.getSpawn());
-		if(RealmsMain.isGameActive()){
+		if(RealmsMain.getServerMode() == ServerMode.GAME){
 			final Player p = e.getPlayer();
 			Broadcast.general("You will respawn in 5 seconds", p);
 			SchedulerManager.registerSingle(1, new Runnable(){

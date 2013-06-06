@@ -13,3 +13,5 @@ commands:
         description: admin tool for creating maps
     setspawn:
         description: admin tool for setting spawn
+    vote:
+        description: levote

@@ -1,9 +1,10 @@
 package com.realms.runtime;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.cal.util.LocationParser;
@@ -18,25 +19,30 @@ import com.realms.schedule.SchedulerManager;
 import com.realms.config.ConfigMain;
 
 public class RealmsMain extends JavaPlugin{
-
+	
 	public static RealmsMain main;
 	public RealmsMain(){
 		main = this;
 	}
 
-	private static boolean gameActive = false;
+	public static boolean debug = true;
+	public static void debug(Object o){
+		if(debug) System.out.println(o);
+	}
+	
+	private static ServerMode mode;
 	private static Map activeMap;
 	private static Location spawn;
 
 	@Override
 	public void onEnable(){
 		spawn = LocationParser.stringToLoc(PKSQLd.getUnparsedData("MAPSPAWN"));
-		Bukkit.getPluginManager().registerEvents(new Damage(), this);
-		Bukkit.getPluginManager().registerEvents(new FireProjectile(this), this);
-		Bukkit.getPluginManager().registerEvents(new Interaction(), this);
-		Bukkit.getPluginManager().registerEvents(new InventoryCancel(), this);
-		Bukkit.getPluginManager().registerEvents(new MapElementInteractions(), this);
-		Bukkit.getPluginManager().registerEvents(new PlayerSpawn(), this);
+		new Damage(this);
+		new FireProjectile(this);
+		new Interaction(this);
+		new InventoryCancel(this);
+		new MapElementInteractions(this);
+		new PlayerSpawn(this);
 		CommandManager.loadAllCommands();
 		if(!ConfigMain.hasBeenLoaded()){
 			ConfigMain.loaded();
@@ -55,6 +61,9 @@ public class RealmsMain extends JavaPlugin{
 				}
 			}); startGameLoad(30);
 		}else startGameLoad(5);
+		for(Player p : Bukkit.getOnlinePlayers()){
+			Bukkit.getPluginManager().callEvent(new PlayerJoinEvent(p, "has remained connected."));
+		}RealmsMain.setServerMode(ServerMode.PREVOTE);
 	}
 	
 	private void startGameLoad(int delay){
@@ -81,12 +90,15 @@ public class RealmsMain extends JavaPlugin{
 		return true;
 	}
 
-	protected static void setGameActive(boolean active){
-		gameActive = active;
+	protected static void setServerMode(ServerMode mode){
+		debug("REALMS SERVER MODE UPDATED TO: " + mode.toString());
+		for(Player p : Bukkit.getOnlinePlayers()){
+			mode.deliverMode(p);
+		}RealmsMain.mode = mode;
 	}
 
-	public static boolean isGameActive(){
-		return gameActive;
+	public static ServerMode getServerMode(){
+		return mode;
 	}
 
 	protected static void setActiveMap(Map newMap){

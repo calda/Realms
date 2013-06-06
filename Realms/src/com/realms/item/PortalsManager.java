@@ -15,7 +15,7 @@ import com.realms.general.Broadcast;
 import com.realms.general.Team;
 import com.realms.io.PlayerData;
 import com.realms.io.PluginData;
-import com.realms.runtime.RealmsMain;
+import com.realms.runtime.*;
 
 public class PortalsManager implements Listener{
 
@@ -26,7 +26,7 @@ public class PortalsManager implements Listener{
 		
 		Player p = e.getPlayer();
 		boolean permission = true;
-		if(!RealmsMain.isGameActive()){
+		if(RealmsMain.getServerMode() != ServerMode.GAME){
 			if(!p.isOp()) permission = false;
 		}else if(e.getBlockPlaced().getType() != Material.PORTAL){
 			if(!p.isOp()) permission = false;

@@ -2,7 +2,6 @@ package com.realms.listener;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -10,8 +9,13 @@ import org.bukkit.inventory.ItemStack;
 import com.realms.item.InteractionType;
 import com.realms.item.ItemInteraction;
 import com.realms.item.ItemType;
+import com.realms.runtime.RealmsMain;
 
-public class Interaction implements Listener{
+public class Interaction extends RealmsListener{
+
+	public Interaction(RealmsMain realms){
+		super(realms);
+	}
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e){

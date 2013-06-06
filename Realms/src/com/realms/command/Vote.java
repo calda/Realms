@@ -2,14 +2,13 @@ package com.realms.command;
 
 import java.util.HashMap;
 
-import org.bukkit.ChatColor;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.scoreboard.*;
 
-import com.realms.general.Broadcast;
-import com.realms.general.HotbarManager;
-import com.realms.item.ItemType;
+import com.realms.general.*;
+import com.realms.menu.MenuManager;
 import com.realms.mode.GameType;
 
 public class Vote extends Command{
@@ -18,6 +17,7 @@ public class Vote extends Command{
 	private static GameType gt1;
 	private static String map2;
 	private static GameType gt2;
+	public static Scoreboard output;
 	
 	private static HashMap<String, VoteCast> votes = new HashMap<String, VoteCast>();
 	private static int A = 0;
@@ -28,7 +28,13 @@ public class Vote extends Command{
 	public static Vote instance = null;
 	
 	public static enum VoteCast{
-		A,B,R;
+		A("Map A"),B("Map B"),R("a Random Map");
+		private final String desc;
+		private VoteCast(String desc){
+			this.desc = desc;
+		}public String getDesc(){
+			return desc;
+		}
 	}
 	
 	public Vote(){
@@ -75,7 +81,12 @@ public class Vote extends Command{
 		map2 = mapB;
 		gt2 = gtB;
 		A = 0; B = 0; R = 0;
+		MenuManager.createVoteMenu(gtA.toString() + " on " + mapA, gtB.toString() + " on " + mapB);
 		open = true;
+		output = Bukkit.getScoreboardManager().getNewScoreboard();
+		Objective obj = output.registerNewObjective("Map Vote", "dummy");
+		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+		obj.setDisplayName("Map Vote");
 	}
 	
 	public static void broadcastVoteReadout(int seconds){
@@ -83,7 +94,7 @@ public class Vote extends Command{
 		Broadcast.vote(ChatColor.DARK_RED + "Map A:~ " + gt1.getFullName() + ChatColor.DARK_GRAY + " on ~" + map1);
 		Broadcast.vote(ChatColor.DARK_RED + "Map B:~ " + gt2.getFullName() + ChatColor.DARK_GRAY + " on ~" + map2);
 		Broadcast.vote(ChatColor.DARK_RED + "Random" + ChatColor.RED + " (R)");
-		Broadcast.vote(ChatColor.YELLOW + "/vote [A/B/R]~ to cast your vote!");
+		Broadcast.vote("Use the " + ChatColor.YELLOW + "Vote Item~ to cast your vote!");
 		Broadcast.vote("Current results are A:" + A + "  B:" + B + " R:" + R);
 	}
 	
@@ -113,9 +124,16 @@ public class Vote extends Command{
 	}
 	
 	public static void updatePlayerReadout(){
-		HotbarManager.setHotbarItemAll(6, new ItemStack(ItemType.VOTE_A.getMaterial(), A + 1));
-		HotbarManager.setHotbarItemAll(7, new ItemStack(ItemType.VOTE_B.getMaterial(), B + 1));
-		HotbarManager.setHotbarItemAll(8, new ItemStack(ItemType.VOTE_R.getMaterial(), R + 1));
+		output.getObjective("Map Vote").unregister();
+		Objective obj = output.registerNewObjective("Map Vote", "dummy");
+		obj.setDisplayName("Vote for Next Map");
+		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+		Score a = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GRAY + "Map A"));
+		a.setScore(A + 1);
+		Score b = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GRAY + "Map B"));
+		b.setScore(B + 1);
+		Score r = obj.getScore(Bukkit.getOfflinePlayer(ChatColor.GRAY + "Random Map"));
+		r.setScore(R + 1);
 	}
 	
 }

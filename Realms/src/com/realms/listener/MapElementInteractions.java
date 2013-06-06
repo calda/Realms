@@ -2,12 +2,16 @@ package com.realms.listener;
 
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.entity.ItemDespawnEvent;
 import com.realms.mode.map.element.MapElement;
+import com.realms.runtime.RealmsMain;
 
-public class MapElementInteractions implements Listener{
+public class MapElementInteractions extends RealmsListener{
+
+	public MapElementInteractions(RealmsMain realms){
+		super(realms);
+	}
 
 	@EventHandler
 	public void onPlayerPickupItem(PlayerPickupItemEvent e){

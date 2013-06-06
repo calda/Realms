@@ -2,11 +2,15 @@ package com.realms.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import com.realms.runtime.RealmsMain;
 
-public class InventoryCancel implements Listener{
+public class InventoryCancel extends RealmsListener{
+
+	public InventoryCancel(RealmsMain realms){
+		super(realms);
+	}
 
 	@EventHandler
 	public void onPlayerDropItem(PlayerDropItemEvent e){
