@@ -54,6 +54,10 @@ public class PlayerData implements Data{
 			classdata.put(ct, classData);
 		}
 	}
+	
+	public String getOwnerName(){
+		return owner;
+	}
 
 	//modifying data from config
 	//**************************

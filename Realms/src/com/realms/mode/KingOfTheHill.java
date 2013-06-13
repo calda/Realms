@@ -47,7 +47,6 @@ public class KingOfTheHill extends GameMode{
 							PlayerData data = PluginData.getPlayerData(p);
 							if(data != null){
 								Team t = data.getTeam();
-								System.out.println(t);
 								Team team = cappingTeam;
 								if(point.getOwner() == Team.NONE) team = Team.RED;
 								if(t == team) capping += 1;
@@ -62,7 +61,6 @@ public class KingOfTheHill extends GameMode{
 				//what to do if the point hasn't been capped by either team yet.
 				//in this case, capping=red, defending=blue as to not duplicate variables
 				percentageCapped += adjustment;
-				System.out.println(adjustment + "  " + percentageCapped);
 				if(point.getOwner() == Team.NONE){
 					if(percentageCapped == 0) cappingTeam = Team.NONE;
 					if(percentageCapped < 0) cappingTeam = Team.BLUE;

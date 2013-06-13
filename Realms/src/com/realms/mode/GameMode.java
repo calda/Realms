@@ -17,7 +17,7 @@ import com.realms.type.ClassType;
 public abstract class GameMode {
 
 	public void spawn(final Player p){
-		final PlayerData data = PluginData.getPlayerData(p);
+		PlayerData data = PluginData.getPlayerData(p);
 		if(data == null) Broadcast.error("You cannot be spawned because your player data cannot be found. Report this error.", p);
 		else{
 			final ClassType classChoice = data.getNextClass();
@@ -25,11 +25,11 @@ public abstract class GameMode {
 				MenuManager.sendPlayerClassMenu(p);
 				SchedulerManager.registerRepeatingTicks("SPAWN LOGIC", "GET " + p.getName() + " CLASS", 0, 1, new Runnable(){
 					public void run(){
-						final PlayerData data = PluginData.getPlayerData(p);
-						System.out.println("Looking in data for " + p.getName() + ", has class of " + data.getNextClass());
-						if(data.getNextClass() != null){
-							System.out.println("PLAYER " + p.getName() + " CHOSE CLASS " + data.getNextClass().toString());
-							continueSpawnLogic1(p, data);
+						final PlayerData pdata = PluginData.getPlayerData(p);
+						System.out.println("Looking in data for " + p.getName() + ", has class of " + pdata.getNextClass());
+						if(pdata.getNextClass() != null){
+							System.out.println("PLAYER " + p.getName() + " CHOSE CLASS " + pdata.getNextClass().toString());
+							continueSpawnLogic1(p, pdata);
 							SchedulerManager.endAllWithName("GET " + p.getName() + " CLASS");
 						}
 					}
@@ -42,9 +42,11 @@ public abstract class GameMode {
 		System.out.println("PLAYER " + p.getName() + " LOADED SPAWN LOGIC 1");
 		final TeamPref teamPref = data.getTeamPref();
 		if(teamPref == TeamPref.NOTCHOSEN || teamPref == null){
-			System.out.println("LOADED IF");
-			MenuManager.sendPlayerTeamMenu(p);
-			SchedulerManager.registerRepeatingTicks("SPAWN LOGIC", "GET " + p.getName() + " TEAM", 0, 1, new Runnable(){
+			SchedulerManager.registerSingleTicks(1, new Runnable(){
+				public void run(){
+					MenuManager.sendPlayerTeamMenu(p);
+				}
+			}); SchedulerManager.registerRepeatingTicks("SPAWN LOGIC", "GET " + p.getName() + " TEAM", 2, 1, new Runnable(){
 				public void run(){
 					final PlayerData data = PluginData.getPlayerData(p);
 					if(data.getTeamPref() != TeamPref.NOTCHOSEN && data.getTeamPref() != null){

@@ -26,7 +26,7 @@ public class MenuManager{
 
 	public static void sendPlayerClassMenu(final Player p){
 
-		final PlayerData data = PluginData.getPlayerData(p);
+		PlayerData data = PluginData.getPlayerData(p);
 		final HashMap<ClassType, Boolean> unlocked = new HashMap<ClassType, Boolean>();
 		for(ClassType type : ClassType.values()){
 			unlocked.put(type, data.getDataForClass(type).isUnlocked());
@@ -34,6 +34,7 @@ public class MenuManager{
 
 		final IconMenu classMenu = new IconMenu(ChatColor.DARK_RED + "Choose a Class!", 27, new IconMenu.OptionClickEventHandler() {
 			public void onOptionClick(IconMenu.OptionClickEvent e) {
+				System.out.println("Received class option click for " + e.getPlayer().getName());
 				e.setWillClose(false);
 				e.setWillDestroy(false);
 				String typeName = e.getName();
@@ -43,6 +44,8 @@ public class MenuManager{
 					if(clicked == null) return;
 					boolean isUnlocked = unlocked.get(clicked);
 					if(isUnlocked){
+						PlayerData data = PluginData.getPlayerData(p);
+						System.out.println(e.getPlayer().getName() + " clicked and set " + data.getOwnerName() + "'s data to " + clicked.toString());
 						data.setNextClass(clicked);
 						Broadcast.general("Your class will be " + clicked.getColoredName() + " ~next time you spawn", p);
 						e.setWillDestroy(true);
@@ -54,8 +57,6 @@ public class MenuManager{
 				
 			}
 		}, RealmsMain.main);
-
-		System.out.println(unlocked);
 		
 		for(ClassType type : ClassType.values()){
 			String name = type.getColoredName();
@@ -94,6 +95,7 @@ public class MenuManager{
 	.setOption(5, new ItemStack(Team.NONE.getBlockType()), Team.NONE.getColor() + "Random", "Randomly be assigned to a team ");
 
 	public static void sendPlayerTeamMenu(final Player p){
+		System.out.println("Sending " + p.getName() + p.getName() + " team menu");
 		teamMenu.open(p);
 	}
 	

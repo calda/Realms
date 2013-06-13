@@ -23,7 +23,7 @@ public class PluginData implements Data{
 	}
 	
 	public static void loadPlayerData(String p){
-		PlayerData pdata = new PlayerData(PKSQLd.getUnparsedData(p));
+		PlayerData pdata = new PlayerData(p);
 		data.put(p, pdata);
 	}
 	
